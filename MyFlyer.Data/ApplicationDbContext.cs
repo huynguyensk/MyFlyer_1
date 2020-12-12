@@ -18,7 +18,7 @@ namespace MyFlyer.Data
             modelBuilder.Entity<Cart>().HasIndex(s => s.UserName).IsUnique();
             modelBuilder.Entity<Wishlist>().HasIndex(s => s.UserName).IsUnique();
             modelBuilder.Entity<Merchant>().HasIndex(s => s.Name).IsUnique();
-            modelBuilder.Entity<Category>().HasIndex(c => c.Flyer_CategoryId).IsUnique();
+            modelBuilder.Entity<Category>().HasIndex(c => c.Name).IsUnique();
 
             var hasher = new PasswordHasher<AppUser>();
             modelBuilder.Entity<AppRole>().HasData(new List<AppRole>
@@ -50,7 +50,7 @@ namespace MyFlyer.Data
                     NormalizedUserName = "STAFF",
                     PasswordHash = hasher.HashPassword(null, "123")
                 }
-            ) ;
+            );
             modelBuilder.Entity<IdentityUserRole<int>>().HasData(
                 new IdentityUserRole<int>()
                 {

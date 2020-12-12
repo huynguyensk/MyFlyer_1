@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MyFlyer.Data.Migrations
 {
-    public partial class MyFlyerInitialDB : Migration
+    public partial class MyFlyerInitial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -61,9 +61,8 @@ namespace MyFlyer.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     IsActive = table.Column<bool>(nullable: false),
                     Name = table.Column<string>(nullable: true),
-                    Slug = table.Column<string>(nullable: true),
                     LogoFile = table.Column<string>(nullable: true),
-                    Website = table.Column<string>(nullable: true),
+                    Url = table.Column<string>(nullable: true),
                     ShowInHome = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
@@ -114,7 +113,6 @@ namespace MyFlyer.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     IsActive = table.Column<bool>(nullable: false),
                     Name = table.Column<string>(nullable: true),
-                    Flyer_CategoryId = table.Column<int>(nullable: false),
                     Slug = table.Column<string>(nullable: true),
                     ImageFile = table.Column<string>(nullable: true),
                     MerchantId = table.Column<int>(nullable: true)
@@ -209,7 +207,7 @@ namespace MyFlyer.Data.Migrations
                     CurrentPrice = table.Column<decimal>(nullable: false),
                     Discount_percent = table.Column<string>(nullable: true),
                     Image_ProDiscount = table.Column<string>(nullable: true),
-                    Image_Product = table.Column<string>(nullable: true),
+                    Image = table.Column<string>(nullable: true),
                     Url = table.Column<string>(nullable: true),
                     InStoreOnly = table.Column<bool>(nullable: false),
                     Pre_price_text = table.Column<string>(nullable: true),
@@ -413,8 +411,8 @@ namespace MyFlyer.Data.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Description", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { 1, "99d35d92-314d-4cc6-89f2-2715c4335bab", null, "Admin", "ADMIN" },
-                    { 2, "64b29bac-cbdb-4439-9a1f-42e7849514be", null, "User", "USER" }
+                    { 1, "c2974535-34d0-4635-a94d-89d91d241613", null, "Admin", "ADMIN" },
+                    { 2, "85962812-c8cb-452d-918d-cbb4bd1808bb", null, "User", "USER" }
                 });
 
             migrationBuilder.InsertData(
@@ -422,8 +420,8 @@ namespace MyFlyer.Data.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "CartId", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "Password", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName", "WishlistId" },
                 values: new object[,]
                 {
-                    { 1, 0, null, "a4aa5596-69a6-4a0f-8ff1-6b1dc5130c0c", null, false, false, null, null, "ADMIN", "123", null, null, false, null, false, "admin", null },
-                    { 2, 0, null, "05f4a75b-f703-45c9-a069-97313826b517", null, false, false, null, null, "STAFF", "123", null, null, false, null, false, "staff", null }
+                    { 1, 0, null, "0f16ef89-b2d6-4715-af5b-c0212f571cf2", null, false, false, null, null, "ADMIN", null, "AQAAAAEAACcQAAAAEFgTaeM3kU5dQ2ADTl7aJkudBvqGizgaVs4GJeYvo5ApgxUAnoKi017edlJQ3nsdaw==", null, false, null, false, "admin", null },
+                    { 2, 0, null, "5e8978c4-9528-42b1-8861-6abd12d36ab8", null, false, false, null, null, "STAFF", null, "AQAAAAEAACcQAAAAEAaB7q20BFbi15ZuKW8PkEqYtRrwAMvyH5ye9iOYPqUNHCWzQhswGah4wxgbRCwaEQ==", null, false, null, false, "staff", null }
                 });
 
             migrationBuilder.InsertData(
@@ -509,15 +507,16 @@ namespace MyFlyer.Data.Migrations
                 filter: "[UserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Categories_Flyer_CategoryId",
-                table: "Categories",
-                column: "Flyer_CategoryId",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Categories_MerchantId",
                 table: "Categories",
                 column: "MerchantId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Categories_Name",
+                table: "Categories",
+                column: "Name",
+                unique: true,
+                filter: "[Name] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Flyers_Url",

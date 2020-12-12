@@ -10,8 +10,8 @@ using MyFlyer.Data;
 namespace MyFlyer.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20201209014302_MyFlyerInitialDB")]
-    partial class MyFlyerInitialDB
+    [Migration("20201212194716_MyFlyerInitial")]
+    partial class MyFlyerInitial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -211,14 +211,14 @@ namespace MyFlyer.Data.Migrations
                         new
                         {
                             Id = 1,
-                            ConcurrencyStamp = "99d35d92-314d-4cc6-89f2-2715c4335bab",
+                            ConcurrencyStamp = "c2974535-34d0-4635-a94d-89d91d241613",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "64b29bac-cbdb-4439-9a1f-42e7849514be",
+                            ConcurrencyStamp = "85962812-c8cb-452d-918d-cbb4bd1808bb",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -308,11 +308,11 @@ namespace MyFlyer.Data.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "a4aa5596-69a6-4a0f-8ff1-6b1dc5130c0c",
+                            ConcurrencyStamp = "0f16ef89-b2d6-4715-af5b-c0212f571cf2",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "ADMIN",
-                            Password = "123",
+                            PasswordHash = "AQAAAAEAACcQAAAAEFgTaeM3kU5dQ2ADTl7aJkudBvqGizgaVs4GJeYvo5ApgxUAnoKi017edlJQ3nsdaw==",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false,
                             UserName = "admin"
@@ -321,11 +321,11 @@ namespace MyFlyer.Data.Migrations
                         {
                             Id = 2,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "05f4a75b-f703-45c9-a069-97313826b517",
+                            ConcurrencyStamp = "5e8978c4-9528-42b1-8861-6abd12d36ab8",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "STAFF",
-                            Password = "123",
+                            PasswordHash = "AQAAAAEAACcQAAAAEAaB7q20BFbi15ZuKW8PkEqYtRrwAMvyH5ye9iOYPqUNHCWzQhswGah4wxgbRCwaEQ==",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false,
                             UserName = "staff"
@@ -389,9 +389,6 @@ namespace MyFlyer.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("Flyer_CategoryId")
-                        .HasColumnType("int");
-
                     b.Property<string>("ImageFile")
                         .HasColumnType("nvarchar(max)");
 
@@ -402,17 +399,18 @@ namespace MyFlyer.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Slug")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Flyer_CategoryId")
-                        .IsUnique();
-
                     b.HasIndex("MerchantId");
+
+                    b.HasIndex("Name")
+                        .IsUnique()
+                        .HasFilter("[Name] IS NOT NULL");
 
                     b.ToTable("Categories");
                 });
@@ -464,10 +462,7 @@ namespace MyFlyer.Data.Migrations
                     b.Property<bool>("ShowInHome")
                         .HasColumnType("bit");
 
-                    b.Property<string>("Slug")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Website")
+                    b.Property<string>("Url")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -507,10 +502,10 @@ namespace MyFlyer.Data.Migrations
                     b.Property<string>("Dist_coupon_image_url")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Image_ProDiscount")
+                    b.Property<string>("Image")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Image_Product")
+                    b.Property<string>("Image_ProDiscount")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("InStoreOnly")

@@ -12,6 +12,7 @@ namespace MyFlyer.Data.Interfaces
         T Add(T entity);
         void Update(T entity);
         void Delete(int id);
+        bool IsExist(Expression<Func<T, bool>> where);
         int Count(Expression<Func<T, bool>> where);
         bool Any(Expression<Func<T, bool>> where);
         List<T> GetByCondition(Expression<Func<T, bool>> condition);        

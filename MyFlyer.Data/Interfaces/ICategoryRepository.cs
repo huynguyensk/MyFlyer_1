@@ -8,7 +8,8 @@ namespace MyFlyer.Data.Interfaces
 {
     public interface ICategoryRepository : IRepository<Category>
     {
-        List<Category> GetCategoryByMerchantId(int merchantId);
+        List<Category> GetCategoryByMerchant(Merchant merchant);
         Category AddCategory(Category entity);
+        
     }
 }
