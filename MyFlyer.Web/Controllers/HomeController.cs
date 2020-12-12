@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using MyFlyer.Data.Interfaces;
 using MyFlyer.Web.Models;
 
 namespace MyFlyer.Web.Controllers
@@ -12,7 +13,9 @@ namespace MyFlyer.Web.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
+        private readonly IProductRepository _productRepository;
+        private readonly ICategoryRepository _categoryRepository;
+        private readonly IMerchantRepository merchantRepository;
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;

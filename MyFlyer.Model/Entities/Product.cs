@@ -7,8 +7,8 @@ namespace MyFlyer.Model.Entities
     {
         public Product()
         {
-            CartItems = new HashSet<CartItem>();
-            WishlistProducts = new HashSet<WishlistProduct>();
+            CartItems = new List<CartItem>();
+            WishlistProducts = new List<WishlistProduct>();
         }
         public string Name { get; set; }
         public string Type { get; set; }
@@ -19,7 +19,7 @@ namespace MyFlyer.Model.Entities
         public decimal CurrentPrice { get; set; }
         public string Discount_percent { get; set; }
         public string Image_ProDiscount { get; set; }
-        public string Image_Product { get; set; }
+        public string Image { get; set; }
         public string Url { get; set; }
         public bool InStoreOnly { get; set; }
         public string Pre_price_text { get; set; }
@@ -31,13 +31,10 @@ namespace MyFlyer.Model.Entities
         public string Dist_coupon_image_url { get; set; }
         public string Sale_Story { get; set; }
         public long Item_Id { get; set; }
-
         //-------------
-
-
         public Merchant Merchant { get; set; }
         public Category Category { get; set; }
-        public virtual ICollection<CartItem> CartItems { get; set; }
-        public virtual ICollection<WishlistProduct> WishlistProducts { get; set; }
+        public virtual List<CartItem> CartItems { get; set; }
+        public virtual List<WishlistProduct> WishlistProducts { get; set; }
     }
 }

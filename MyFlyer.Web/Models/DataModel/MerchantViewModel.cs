@@ -9,6 +9,8 @@ namespace MyFlyer.Web.Models.DataModel
             Categories = new HashSet<CategoryViewModel>();
         }
         public string Name { get; set; }
+        public string Url { get; set; }
+        public string Logo { get; set; }
         public virtual ICollection<ProductViewModel> Products { get; set; }
         public virtual ICollection<CategoryViewModel> Categories { get; set; }
     }

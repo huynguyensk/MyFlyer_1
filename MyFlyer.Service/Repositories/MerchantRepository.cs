@@ -1,6 +1,7 @@
 ﻿using MyFlyer.Data;
 using MyFlyer.Data.Interfaces;
 using MyFlyer.Model.Entities;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace MyFlyer.Service.Repositories
@@ -19,6 +20,11 @@ namespace MyFlyer.Service.Repositories
                 Add(entity);
             }
             return merch;
+        }
+
+        public List<Category> GetCategoryInMerchant(Merchant merchant)
+        {
+            return merchant.Categories;
         }
     }
 }

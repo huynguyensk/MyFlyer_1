@@ -9,6 +9,7 @@ using MyFlyer.Model.Entities;
 using Microsoft.AspNetCore.Identity;
 using MyFlyer.Data.Interfaces;
 using MyFlyer.Service.Repositories;
+using AutoMapper;
 
 namespace MyFlyer.Web
 {
@@ -37,6 +38,8 @@ namespace MyFlyer.Web
                    options.Password.RequireNonAlphanumeric = false;
                }).AddEntityFrameworkStores<ApplicationDbContext>()
                .AddDefaultTokenProviders();
+
+            services.AddAutoMapper(typeof(Startup));
             services.AddMvc(options => options.EnableEndpointRouting = false);
             services.AddScoped<IFlyerRepository, FlyerRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();

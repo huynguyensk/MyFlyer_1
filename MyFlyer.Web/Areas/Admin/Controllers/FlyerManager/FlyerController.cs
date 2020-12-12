@@ -5,8 +5,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MyFlyer.Data.Interfaces;
+using MyFlyer.Service;
 using MyFlyer.Web.Areas.Admin.Models;
-
+using MyFlyer.Web.Models.DataModel;
+using MyFlyer.Model.Entities;
 namespace MyFlyer.Web.Areas.Admin.Controllers.FlyerManager
 {
     [Area("admin")]
@@ -45,18 +47,101 @@ namespace MyFlyer.Web.Areas.Admin.Controllers.FlyerManager
 
         // POST: Flyer/Create
         [HttpPost]
-        public ActionResult Create(FlyerViewModel flyerViewModel)
+        [Obsolete]
+        public ActionResult Create(string url)
         {
-            try
+            if (!ModelState.IsValid)
             {
-                // TODO: Add insert logic here
+                return View(url);
+            }
+            else
+            {
+                var flyerViewModel = new FlyerViewModel
+                {
+                    Url = url
+                };
 
-                return RedirectToAction(nameof(Index));
+                if (!_flyerRepository.IsExist(f => f.Url == url))
+                {
+                    var crawlObject = Function.GetAllCrawlModels(url);
+                    var merchant = new Merchant
+                    {
+                        Name = crawlObject.merchant,
+                        Url = crawlObject.merchant_url,
+                        LogoFile = crawlObject.merchant_logo
+                    };
+                    if (!_merchantRepository.IsExist(m => m.Name == merchant.Name))
+                    {
+                        _merchantRepository.Add(merchant);
+                    }
+                    else
+                    {
+                        merchant = _merchantRepository.GetByCondition(m => m.Name == merchant.Name).FirstOrDefault();
+                    }
+
+                    foreach (var item in crawlObject.items)
+                    {
+                        if (item.current_price != null)
+                        {
+                            var product = new Product
+                            {
+                                Name = item.name,
+                                CurrentPrice = Convert.ToDecimal(item.current_price),
+                                Brand = item.brand,
+                                Description = item.description,
+                                Discount_percent = item.discount_percent.ToString(),
+                                DisplayName = item.display_name,
+                                Dist_coupon_image_url = item.dist_coupon_image_url,
+                                Image = item.large_image_url,
+                                Url = item.url,
+                                InStoreOnly = item.in_store_only,
+                                X_large_image_url = item.x_large_image_url,
+                                Sale_Story = item.sale_story,
+                                Item_Id = item.flyer_item_id,
+                                Valid_from = DateTime.Parse(item.valid_from),
+                                Valid_to = DateTime.Parse(item.valid_to)
+                            };
+
+                            if (item.category_names.Count > 0)
+                            {
+                                string cateName = item.category_names[0];
+                                var proCate = new Category();
+                                if (_categoryReposity.IsExist(c => c.Name == cateName))
+                                {
+                                    proCate = _categoryReposity.GetByCondition(c => c.Name == cateName).FirstOrDefault();
+                                }
+                                else
+                                {
+                                    proCate.Name = cateName;
+                                    _categoryReposity.Add(proCate);
+                                    if (!merchant.Categories.Contains(proCate))
+                                    {
+                                        merchant.Categories.Add(proCate);
+                                    }
+                                }
+                                product.Category = proCate;
+                            }
+                            if (!_productRepository.IsExist(p => p.Item_Id == product.Item_Id))
+                            {
+                                _productRepository.Add(product);
+                                if (!merchant.Products.Contains(product))
+                                {
+                                    merchant.Products.Add(product);
+                                }
+                            }
+                        }
+                    }
+                    _merchantRepository.Add(merchant);
+                    var flyer = new Flyer
+                    {
+                        Url = url,
+                        Valid_from = crawlObject.valid_from,
+                        Valid_to = crawlObject.valid_to
+                    };
+                    _flyerRepository.Add(flyer);
+                }
             }
-            catch
-            {
-                return View();
-            }
+            return View();
         }
 
         // GET: Flyer/Edit/5

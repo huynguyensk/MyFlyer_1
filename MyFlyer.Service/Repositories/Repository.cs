@@ -18,7 +18,7 @@ namespace MyFlyer.Service.Repositories
         }
         public T Add(T entity)
         {
-            if (GetById(entity.Id) == null)
+            if (entity.Id == 0)
             {
                 _dbContext.Set<T>().Add(entity);
                 _dbContext.SaveChanges();
@@ -70,6 +70,11 @@ namespace MyFlyer.Service.Repositories
         public List<T> GetByCondition(Expression<Func<T, bool>> condition)
         {
             return _dbContext.Set<T>().Where(condition).ToList();
+        }
+
+        public bool IsExist(Expression<Func<T, bool>> where)
+        {
+            return _dbContext.Set<T>().Any(where);
         }
     }
 }

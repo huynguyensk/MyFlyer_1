@@ -22,10 +22,9 @@ namespace MyFlyer.Service.Repositories
             return cat;
         }
 
-        public List<Category> GetCategoryByMerchantId(int merchantId)
+        public List<Category> GetCategoryByMerchant(Merchant merchant)
         {
-            var categories = GetAll();
-            return categories;
-        }
+            throw new System.NotImplementedException();
+        }      
     }
 }

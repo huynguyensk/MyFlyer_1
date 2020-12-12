@@ -7,13 +7,14 @@ namespace MyFlyer.Web.Models.DataModel
     {
         public string Name { get; set; }
         public string Type { get; set; }
+        public string Slug { get; set; }
         public string Brand { get; set; }
         public string DisplayName { get; set; }
         public string Description { get; set; }
         public decimal CurrentPrice { get; set; }
         public string Discount_percent { get; set; }
         public string Image_ProDiscount { get; set; }
-        public string Image_Product { get; set; }
+        public string Image { get; set; }
         public string Url { get; set; }
         public bool InStoreOnly { get; set; }
         public string Pre_price_text { get; set; }
@@ -25,6 +26,11 @@ namespace MyFlyer.Web.Models.DataModel
         public string Dist_coupon_image_url { get; set; }
         public string Sale_Story { get; set; }
         public long Item_Id { get; set; }
+        //-------------
+        public MerchantViewModel MerchantViewModel { get; set; }
+        public CategoryViewModel CategoryViewModel { get; set; }
+        // public virtual List<CartItem> CartItems { get; set; }
+        // public virtual List<WishlistProduct> WishlistProducts { get; set; }
 
     }
 }

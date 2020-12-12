@@ -8,14 +8,14 @@ namespace MyFlyer.Web.Areas.Admin.Models
 {
     public class FlyerViewModel
     {
-               
+        [Required]
         public string Url { get; set; }
-        [Display(Name = "Valid From")]
-        [DataType(DataType.Date)]
-        public DateTime Valid_from { get; set; }
-        [Display(Name = "Valid To")]
-        [DataType(DataType.Date)]
-        public DateTime Valid_to { get; set; }
+        //[Display(Name = "Valid From")]
+        //[DataType(DataType.Date)]
+        //public DateTime Valid_from { get; set; }
+        //[Display(Name = "Valid To")]
+        //[DataType(DataType.Date)]
+        //public DateTime Valid_to { get; set; }
 
     }
 }

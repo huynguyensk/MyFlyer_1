@@ -5,18 +5,17 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
     <div>
-
         <div class="container">
             <div class="row clearfix">
                 <h3>Create Data</h3>
                 <div class="col-md-11 col-md-offset-3 column">
-                    <form asp-action="Create" method="post" asp-area="Admin" asp-controller="Flyer">
+                    <form asp-action="Create" method="POST" asp-area="Admin" asp-controller="Flyer">
                         <div class="form-group">
-                            <label asp-for="Url">Url:</label>
+                            <label asp-for="Url"></label>
                             <input type="text" class="form-control" asp-for="Url" />
                             <span class="text-danger" asp-validation-for="Url"></span>
                         </div>
-                        <button type="submit" class="btn btn-primary"> Submit</button>
+                        <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
                 </div>
             </div>
@@ -24,7 +23,6 @@
                 <a asp-action="Index">Back to List</a>
             </div>
         </div>
-
     </div>
 
 

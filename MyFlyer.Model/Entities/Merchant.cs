@@ -5,18 +5,17 @@ namespace MyFlyer.Model.Entities
     {
         public Merchant()
         {
-            Stores = new HashSet<Store>();
-            Products = new HashSet<Product>();
-            Categories = new HashSet<Category>();
+            Stores = new List<Store>();
+            Products = new List<Product>();
+            Categories = new List<Category>();
         }
-        public string Name { get; set; }
-        public string Slug { get; set; }
+        public string Name { get; set; }        
         public string LogoFile { get; set; }
-        public string Website { get; set; }
+        public string Url { get; set; }
         public bool ShowInHome { get; set; }
         //-------------------------
-        public virtual ICollection<Store> Stores { get; set; }
-        public virtual ICollection<Product> Products { get; set; }
-        public virtual ICollection<Category> Categories { get; set; }
+        public virtual List<Store> Stores { get; set; }
+        public virtual List<Product> Products { get; set; }
+        public virtual List<Category> Categories { get; set; }
     }
 }

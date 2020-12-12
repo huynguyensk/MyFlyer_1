@@ -8,10 +8,10 @@ namespace MyFlyer.Model.Entities
     {
         public Cart()
         {
-            CartItems = new HashSet<CartItem>();
+            CartItems = new List<CartItem>();
         }
         public string UserName { get; set; }
-        public virtual ICollection<CartItem> CartItems { get; set; }
+        public virtual List<CartItem> CartItems { get; set; }
         public decimal CartTotal { get { return CartItems.Sum(s => s.Quantity * s.UnitPrice); } }
 
         public void AddCart(Product product)

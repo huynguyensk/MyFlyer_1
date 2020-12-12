@@ -8,10 +8,10 @@ namespace MyFlyer.Model.Entities
     {
         public Wishlist()
         {
-            WishlistProducts = new HashSet<WishlistProduct>();
+            WishlistProducts = new List<WishlistProduct>();
         }
         public string UserName { get; set; }
-        public virtual ICollection<WishlistProduct> WishlistProducts { get; set; }
+        public virtual List<WishlistProduct> WishlistProducts { get; set; }
         public void AddItem(int productId)
         {
             var existingItem = WishlistProducts.FirstOrDefault(x => x.ProductId == productId);
