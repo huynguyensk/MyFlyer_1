@@ -1,0 +1,12 @@
+﻿@using MyFlyer.Web.Models.DataModel;
+@model List<MenuViewModel>
+
+    <ul class="navbar-nav ml-auto">
+        @foreach (var menu in Model)
+        {
+            <li class="nav-item">
+                <a class="nav-link" href="#">@menu.Name</a>
+            </li>
+        }
+
+    </ul>

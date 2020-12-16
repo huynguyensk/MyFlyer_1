@@ -209,14 +209,21 @@ namespace MyFlyer.Data.Migrations
                         new
                         {
                             Id = 1,
-                            ConcurrencyStamp = "c2974535-34d0-4635-a94d-89d91d241613",
+                            ConcurrencyStamp = "f9e1ce1a-e723-40f9-aa62-daab97532cb6",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "85962812-c8cb-452d-918d-cbb4bd1808bb",
+                            ConcurrencyStamp = "37876ff4-de87-4bef-ac0f-2895185a8342",
+                            Name = "Staff",
+                            NormalizedName = "STAFF"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            ConcurrencyStamp = "943c767a-6092-428f-8810-53ab48842e31",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -244,6 +251,9 @@ namespace MyFlyer.Data.Migrations
                         .HasMaxLength(256);
 
                     b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
                     b.Property<bool>("LockoutEnabled")
@@ -306,12 +316,14 @@ namespace MyFlyer.Data.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "0f16ef89-b2d6-4715-af5b-c0212f571cf2",
+                            ConcurrencyStamp = "5ddb6284-6a1a-4e64-be7f-8c9ba19512c0",
                             EmailConfirmed = false,
+                            IsActive = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEFgTaeM3kU5dQ2ADTl7aJkudBvqGizgaVs4GJeYvo5ApgxUAnoKi017edlJQ3nsdaw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEAnp4AtWv+hFaTEebkW6f3tksJsH5hJ8VvLSQyCFsVW2X2File/AC7EfSCjOM6L6UQ==",
                             PhoneNumberConfirmed = false,
+                            SecurityStamp = "0cafeb4a-8128-4350-84cd-cd9a9bbd36ae",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         },
@@ -319,12 +331,14 @@ namespace MyFlyer.Data.Migrations
                         {
                             Id = 2,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "5e8978c4-9528-42b1-8861-6abd12d36ab8",
+                            ConcurrencyStamp = "33f43528-208c-45f7-82f6-972743e24f62",
                             EmailConfirmed = false,
+                            IsActive = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "STAFF",
-                            PasswordHash = "AQAAAAEAACcQAAAAEAaB7q20BFbi15ZuKW8PkEqYtRrwAMvyH5ye9iOYPqUNHCWzQhswGah4wxgbRCwaEQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEF2wk70dFv4gDcHVKgKwmHNyaQAWULM03hpySWaiz0L6iSNqkUcO/WCF/OJQvQR9hQ==",
                             PhoneNumberConfirmed = false,
+                            SecurityStamp = "b4c30982-c1c4-41ed-8eb4-11f2ae43c9a0",
                             TwoFactorEnabled = false,
                             UserName = "staff"
                         });
@@ -393,22 +407,13 @@ namespace MyFlyer.Data.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("MerchantId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Slug")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("MerchantId");
-
-                    b.HasIndex("Name")
-                        .IsUnique()
-                        .HasFilter("[Name] IS NOT NULL");
 
                     b.ToTable("Categories");
                 });
@@ -441,6 +446,66 @@ namespace MyFlyer.Data.Migrations
                     b.ToTable("Flyers");
                 });
 
+            modelBuilder.Entity("MyFlyer.Model.Entities.Menu", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique()
+                        .HasFilter("[Name] IS NOT NULL");
+
+                    b.ToTable("Menus");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            IsActive = false,
+                            Name = "Home"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            IsActive = false,
+                            Name = "About"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            IsActive = false,
+                            Name = "Service"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            IsActive = false,
+                            Name = "Contact"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            IsActive = false,
+                            Name = "Login"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            IsActive = false,
+                            Name = "Cart"
+                        });
+                });
+
             modelBuilder.Entity("MyFlyer.Model.Entities.Merchant", b =>
                 {
                     b.Property<int>("Id")
@@ -455,7 +520,7 @@ namespace MyFlyer.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("ShowInHome")
                         .HasColumnType("bit");
@@ -465,11 +530,32 @@ namespace MyFlyer.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Name")
-                        .IsUnique()
-                        .HasFilter("[Name] IS NOT NULL");
-
                     b.ToTable("Merchants");
+                });
+
+            modelBuilder.Entity("MyFlyer.Model.Entities.MerchantCategory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("MerchantId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
+
+                    b.HasIndex("MerchantId");
+
+                    b.ToTable("MerchantCategory");
                 });
 
             modelBuilder.Entity("MyFlyer.Model.Entities.Product", b =>
@@ -722,17 +808,25 @@ namespace MyFlyer.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("MyFlyer.Model.Entities.Category", b =>
+            modelBuilder.Entity("MyFlyer.Model.Entities.MerchantCategory", b =>
                 {
-                    b.HasOne("MyFlyer.Model.Entities.Merchant", null)
-                        .WithMany("Categories")
-                        .HasForeignKey("MerchantId");
+                    b.HasOne("MyFlyer.Model.Entities.Category", "Category")
+                        .WithMany("MerchantCategories")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MyFlyer.Model.Entities.Merchant", "Merchant")
+                        .WithMany("MerchantCategories")
+                        .HasForeignKey("MerchantId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("MyFlyer.Model.Entities.Product", b =>
                 {
                     b.HasOne("MyFlyer.Model.Entities.Category", "Category")
-                        .WithMany()
+                        .WithMany("Products")
                         .HasForeignKey("CategoryId");
 
                     b.HasOne("MyFlyer.Model.Entities.Merchant", "Merchant")

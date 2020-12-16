@@ -24,7 +24,7 @@ namespace MyFlyer.Service.Repositories
 
         public List<Category> GetCategoryByMerchant(Merchant merchant)
         {
-            throw new System.NotImplementedException();
+            return merchant.Categories;
         }      
     }
 }

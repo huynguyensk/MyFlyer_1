@@ -27,8 +27,8 @@ namespace MyFlyer.Web.Models.DataModel
         public string Sale_Story { get; set; }
         public long Item_Id { get; set; }
         //-------------
-        public MerchantViewModel MerchantViewModel { get; set; }
-        public CategoryViewModel CategoryViewModel { get; set; }
+        public MerchantViewModel Merchant { get; set; }
+        public CategoryViewModel Category { get; set; }
         // public virtual List<CartItem> CartItems { get; set; }
         // public virtual List<WishlistProduct> WishlistProducts { get; set; }
 

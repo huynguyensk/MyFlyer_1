@@ -7,6 +7,7 @@ namespace MyFlyer.Web.Models.DataModel
         public int Flyer_CategoryId { get; set; }
         public string Slug { get; set; }
         public string ImageFile { get; set; }
-
+        public List<ProductViewModel> Products { get; set; }
+        public MerchantViewModel Merchant { get; set; }
     }
 }

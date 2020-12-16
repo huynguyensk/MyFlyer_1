@@ -14,6 +14,9 @@ namespace MyFlyer.Application
             CreateMap<Merchant, MerchantViewModel>().ReverseMap();
             CreateMap<Product, ProductViewModel>().ReverseMap();
             CreateMap<Wishlist, WishlistViewModel>().ReverseMap();
+            CreateMap<Menu, MenuViewModel>().ReverseMap();
+            CreateMap<Cart, CartViewModel>().ReverseMap();
+            CreateMap<CartItem, CartItemViewModel>().ReverseMap();
         }
     }
 }

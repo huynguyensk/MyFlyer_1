@@ -5,7 +5,7 @@ namespace MyFlyer.Web.Models.Account
     public class LoginViewModel
     {
         [Required]
-        public string UsernameOrEmail { get; set; }
+        public string Email { get; set; }
         [Required]
         [DataType(DataType.Password)]
         public string Password { get; set; }

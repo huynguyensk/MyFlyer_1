@@ -2,7 +2,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using MyFlyer.Model.Entities;
+using System;
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 namespace MyFlyer.Data
 {
     public class ApplicationDbContext : IdentityDbContext<AppUser, AppRole, int>
@@ -17,10 +19,56 @@ namespace MyFlyer.Data
             modelBuilder.Entity<Flyer>().HasIndex(s => s.Url).IsUnique();
             modelBuilder.Entity<Cart>().HasIndex(s => s.UserName).IsUnique();
             modelBuilder.Entity<Wishlist>().HasIndex(s => s.UserName).IsUnique();
-            modelBuilder.Entity<Merchant>().HasIndex(s => s.Name).IsUnique();
-            modelBuilder.Entity<Category>().HasIndex(c => c.Name).IsUnique();
+            //modelBuilder.Entity<Merchant>().HasIndex(s => s.Name).IsUnique();
+            //modelBuilder.Entity<Category>().HasIndex(c => c.Name).IsUnique();
+            modelBuilder.Entity<Menu>().HasIndex(c => c.Name).IsUnique();
+
+            modelBuilder.Entity<MerchantCategory>()
+                .HasOne(x => x.Category)
+                .WithMany(x => x.MerchantCategories)
+                .HasForeignKey(x => x.CategoryId);
+
+            modelBuilder.Entity<MerchantCategory>()
+              .HasOne(x => x.Merchant)
+              .WithMany(x => x.MerchantCategories)
+              .HasForeignKey(x => x.MerchantId);
+
 
             var hasher = new PasswordHasher<AppUser>();
+            modelBuilder.Entity<Menu>().HasData(new List<Menu>
+            {
+                new Menu
+                {
+                    Id =1,
+                    Name ="Home"
+                },
+                 new Menu
+                {
+                    Id =2,
+                    Name ="About"
+                },
+                  new Menu
+                {
+                    Id =3,
+                    Name ="Service"
+                },
+                   new Menu
+                {
+                    Id =4,
+                    Name ="Contact"
+                },
+                   new Menu
+                {
+                    Id =5,
+                    Name ="Login"
+                },
+                    new Menu
+                {
+                    Id =6,
+                    Name ="Cart"
+                }
+
+            });
             modelBuilder.Entity<AppRole>().HasData(new List<AppRole>
             {
                 new AppRole {
@@ -30,9 +78,14 @@ namespace MyFlyer.Data
                 },
                 new AppRole {
                     Id = 2,
+                    Name = "Staff",
+                    NormalizedName = "STAFF"
+                },
+                new AppRole {
+                    Id = 3,
                     Name = "User",
                     NormalizedName = "USER"
-                },
+                }
             });
             modelBuilder.Entity<AppUser>().HasData(
                 new AppUser
@@ -40,15 +93,16 @@ namespace MyFlyer.Data
                     Id = 1, // primary key
                     UserName = "admin",
                     NormalizedUserName = "ADMIN",
-                    PasswordHash = hasher.HashPassword(null, "123")
-
+                    PasswordHash = hasher.HashPassword(null, "123"),
+                    SecurityStamp = Guid.NewGuid().ToString("D")
                 },
                 new AppUser
                 {
                     Id = 2, // primary key
                     UserName = "staff",
                     NormalizedUserName = "STAFF",
-                    PasswordHash = hasher.HashPassword(null, "123")
+                    PasswordHash = hasher.HashPassword(null, "123"),
+                    SecurityStamp = Guid.NewGuid().ToString("D")
                 }
             );
             modelBuilder.Entity<IdentityUserRole<int>>().HasData(
@@ -77,5 +131,7 @@ namespace MyFlyer.Data
         public DbSet<Wishlist> Wishlists { get; set; }
         public DbSet<WishlistProduct> WishlistProducts { get; set; }
         public DbSet<Flyer> Flyers { get; set; }
+        public DbSet<Menu> Menus { get; set; }
+        //public DbSet<MerchantCategory> MerchantCategories { get; set; }
     }
 }

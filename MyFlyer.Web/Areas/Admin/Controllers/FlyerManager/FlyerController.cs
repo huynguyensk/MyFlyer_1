@@ -9,6 +9,8 @@ using MyFlyer.Service;
 using MyFlyer.Web.Areas.Admin.Models;
 using MyFlyer.Web.Models.DataModel;
 using MyFlyer.Model.Entities;
+using Microsoft.AspNetCore.Authorization;
+
 namespace MyFlyer.Web.Areas.Admin.Controllers.FlyerManager
 {
     [Area("admin")]
@@ -18,14 +20,17 @@ namespace MyFlyer.Web.Areas.Admin.Controllers.FlyerManager
         private readonly IProductRepository _productRepository;
         private readonly ICategoryRepository _categoryReposity;
         private readonly IMerchantRepository _merchantRepository;
+        private readonly IMerchantCategoryRepo _merchantCategoryRepo;
 
-        public FlyerController(IFlyerRepository flyerRepository, IProductRepository productRepository, ICategoryRepository categoryReposity, IMerchantRepository merchantRepository)
+        public FlyerController(IFlyerRepository flyerRepository, IProductRepository productRepository, ICategoryRepository categoryReposity, IMerchantRepository merchantRepository, IMerchantCategoryRepo merchantCategoryRepo)
         {
             _flyerRepository = flyerRepository;
             _productRepository = productRepository;
             _categoryReposity = categoryReposity;
             _merchantRepository = merchantRepository;
+            _merchantCategoryRepo = merchantCategoryRepo;
         }
+
 
         // GET: Flyer
         public ActionResult Index()
@@ -39,6 +44,7 @@ namespace MyFlyer.Web.Areas.Admin.Controllers.FlyerManager
             return View();
         }
 
+
         // GET: Flyer/Create
         public ActionResult Create()
         {
@@ -46,6 +52,7 @@ namespace MyFlyer.Web.Areas.Admin.Controllers.FlyerManager
         }
 
         // POST: Flyer/Create
+
         [HttpPost]
         [Obsolete]
         public ActionResult Create(string url)
@@ -79,6 +86,33 @@ namespace MyFlyer.Web.Areas.Admin.Controllers.FlyerManager
                         merchant = _merchantRepository.GetByCondition(m => m.Name == merchant.Name).FirstOrDefault();
                     }
 
+                    foreach (var crawlcate in crawlObject.categories)
+                    {
+                        var category = new Category();
+                        category.Name = crawlcate.name;                       
+
+                        if (!_categoryReposity.IsExist(c => c.Name == category.Name))
+                        {
+                            _categoryReposity.Add(category);
+                        }
+                        else
+                        {
+                            category = _categoryReposity.GetByCondition(c => c.Name == category.Name).FirstOrDefault();
+                        }
+                        var merchantCategory = new MerchantCategory
+                        {
+                            Merchant = merchant,
+                            Category = category
+                        };
+                        var exist = _merchantCategoryRepo.GetByCondition(c => c.Category == category & c.Merchant == merchant).Count > 0 ? true : false;
+                        if (!exist)
+                        {
+                            _merchantCategoryRepo.Add(merchantCategory);
+                            merchant.MerchantCategories.Add(merchantCategory);
+                            category.MerchantCategories.Add(merchantCategory);
+                        }
+                    }
+
                     foreach (var item in crawlObject.items)
                     {
                         if (item.current_price != null)
@@ -103,23 +137,30 @@ namespace MyFlyer.Web.Areas.Admin.Controllers.FlyerManager
                             };
 
                             if (item.category_names.Count > 0)
-                            {
-                                string cateName = item.category_names[0];
-                                var proCate = new Category();
-                                if (_categoryReposity.IsExist(c => c.Name == cateName))
+                            {                                
+                                var cate = item.category_names[0];
+                                var proCate = _categoryReposity.GetByCondition(c => c.Name ==cate).FirstOrDefault();
+                                if (proCate == null)
                                 {
-                                    proCate = _categoryReposity.GetByCondition(c => c.Name == cateName).FirstOrDefault();
-                                }
-                                else
-                                {
-                                    proCate.Name = cateName;
+                                    proCate = new Category();
+                                    proCate.Name = cate;
                                     _categoryReposity.Add(proCate);
-                                    if (!merchant.Categories.Contains(proCate))
-                                    {
-                                        merchant.Categories.Add(proCate);
-                                    }
                                 }
+                                    var merchantCategory = new MerchantCategory
+                                    {
+                                        Merchant = merchant,
+                                        Category = proCate
+                                    };
+                                    var exist = _merchantCategoryRepo.GetByCondition(c => c.Category == proCate & c.Merchant == merchant).Count > 0 ? true : false;
+                                    if (!exist)
+                                    {
+                                        _merchantCategoryRepo.Add(merchantCategory);
+                                        merchant.MerchantCategories.Add(merchantCategory);
+                                        proCate.MerchantCategories.Add(merchantCategory);
+                                    }
+                                
                                 product.Category = proCate;
+                                
                             }
                             if (!_productRepository.IsExist(p => p.Item_Id == product.Item_Id))
                             {
@@ -131,7 +172,7 @@ namespace MyFlyer.Web.Areas.Admin.Controllers.FlyerManager
                             }
                         }
                     }
-                    _merchantRepository.Add(merchant);
+                    _merchantRepository.Update(merchant);
                     var flyer = new Flyer
                     {
                         Url = url,

@@ -8,6 +8,7 @@ namespace MyFlyer.Service.Repositories
 {
     public class MerchantRepository : Repository<Merchant>, IMerchantRepository
     {
+        
         public MerchantRepository(ApplicationDbContext dbContext) : base(dbContext)
         {
         }
@@ -22,9 +23,5 @@ namespace MyFlyer.Service.Repositories
             return merch;
         }
 
-        public List<Category> GetCategoryInMerchant(Merchant merchant)
-        {
-            return merchant.Categories;
-        }
     }
 }

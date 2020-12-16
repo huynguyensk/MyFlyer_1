@@ -1,74 +1,140 @@
+﻿@model MyFlyer.Web.Models.Account.RegisterViewModel
 @{
     Layout = null;
 }
 <!DOCTYPE html>
-<!--[if lt IE 7 ]> <html lang="en" class="no-js ie6 lt8"> <![endif]-->
-<!--[if IE 7 ]>    <html lang="en" class="no-js ie7 lt8"> <![endif]-->
-<!--[if IE 8 ]>    <html lang="en" class="no-js ie8 lt8"> <![endif]-->
-<!--[if IE 9 ]>    <html lang="en" class="no-js ie9"> <![endif]-->
-<!--[if (gt IE 9)|!(IE)]><!-->
-<html lang="en" class="no-js">
-<!--<![endif]-->
-
+<html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">  -->
-    <title>Register MyFlyer</title>
-    <link rel="shortcut icon" href="../favicon.ico">
-    <link rel="stylesheet" type="text/css" href="/css/demo.css" />
-    <link rel="stylesheet" type="text/css" href="/css/style2.css" />
-    <link rel="stylesheet" type="text/css" href="/css/animate-custom.css" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+    <title>Bootstrap Simple Login Form with Blue Background</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+        body {
+            color: #fff;
+            background: #3598dc;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .form-control {
+            height: 41px;
+            background: #f2f2f2;
+            box-shadow: none !important;
+            border: none;
+        }
+
+            .form-control:focus {
+                background: #e2e2e2;
+            }
+
+        .form-control, .btn {
+            border-radius: 3px;
+        }
+
+        .signup-form {
+            width: 390px;
+            margin: 30px auto;
+        }
+
+            .signup-form form {
+                color: #999;
+                border-radius: 3px;
+                margin-bottom: 15px;
+                background: #fff;
+                box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+                padding: 30px;
+            }
+
+            .signup-form h2 {
+                color: #333;
+                font-weight: bold;
+                margin-top: 0;
+            }
+
+            .signup-form hr {
+                margin: 0 -30px 20px;
+            }
+
+            .signup-form .form-group {
+                margin-bottom: 20px;
+            }
+
+            .signup-form input[type="checkbox"] {
+                margin-top: 3px;
+            }
+
+            .signup-form .row div:first-child {
+                padding-right: 10px;
+            }
+
+            .signup-form .row div:last-child {
+                padding-left: 10px;
+            }
+
+            .signup-form .btn {
+                font-size: 16px;
+                font-weight: bold;
+                background: #3598dc;
+                border: none;
+                min-width: 140px;
+            }
+
+                .signup-form .btn:hover, .signup-form .btn:focus {
+                    background: #2389cd !important;
+                    outline: none;
+                }
+
+            .signup-form a {
+                color: #fff;
+                text-decoration: underline;
+            }
+
+                .signup-form a:hover {
+                    text-decoration: none;
+                }
+
+            .signup-form form a {
+                color: #3598dc;
+                text-decoration: none;
+            }
+
+                .signup-form form a:hover {
+                    text-decoration: underline;
+                }
+
+            .signup-form .hint-text {
+                padding-bottom: 15px;
+                text-align: center;
+            }
+    </style>
 </head>
-
 <body>
-    <br>
-    <div class="container">
-
-
-        <section>
-            <div id="container_demo">
-                <!-- hidden anchor to stop jump http://www.css3create.com/Astuce-Empecher-le-scroll-avec-l-utilisation-de-target#wrap4  -->
-                <a class="hiddenanchor" id="toregister"></a>
-                <a class="hiddenanchor" id="tologin"></a>
-                <div id="wrapper">
-                    <div id="login" class="animate form">
-                        <form action="mysuperscript.php" autocomplete="on">
-                            <h1> Sign up </h1>
-                            <p>
-                                <label for="usernamesignup" class="uname" data-icon="u">Your username</label>
-                                <input id="usernamesignup" name="usernamesignup" required="required" type="text"
-                                    placeholder="mysuperusername690" />
-                            </p>
-                            <p>
-                                <label for="emailsignup" class="youmail" data-icon="e"> Your email</label>
-                                <input id="emailsignup" name="emailsignup" required="required" type="email"
-                                    placeholder="mysupermail@mail.com" />
-                            </p>
-                            <p>
-                                <label for="passwordsignup" class="youpasswd" data-icon="p">Your password </label>
-                                <input id="passwordsignup" name="passwordsignup" required="required" type="password"
-                                    placeholder="eg. X8df!90EO" />
-                            </p>
-                            <p>
-                                <label for="passwordsignup_confirm" class="youpasswd" data-icon="p">Please confirm your
-                                    password </label>
-                                <input id="passwordsignup_confirm" name="passwordsignup_confirm" required="required"
-                                    type="password" placeholder="eg. X8df!90EO" />
-                            </p>
-                            <p class="signin button">
-                                <input type="submit" value="Sign up" />
-                            </p>
-                            <p class="change_link">
-                                Already a member ?
-                                <a asp-action="Login" class="to_register"> Go and log in </a>
-                            </p>
-                        </form>
-                    </div>
-
-                </div>
+    <div class="signup-form">
+        <form action-for="Register" asp-controller="Account" method="post">
+            <h2>Sign Up</h2>
+            <p>Please fill in this form to create an account!</p>
+            <hr>           
+            <div class="form-group">
+                <input type="email" class="form-control" asp-for="Email" placeholder="Email" required="required">
             </div>
-        </section>
+            <div class="form-group">
+                <input type="password" class="form-control" asp-for="Password" placeholder="Password" required="required">
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control" asp-for="ConfirmPassword" placeholder="Confirm Password" required="required">
+            </div>
+            <div class="form-group">
+                <label class="checkbox-inline"><input type="checkbox" required="required"> I accept the <a href="#">Terms of Use</a> &amp; <a href="#">Privacy Policy</a></label>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary btn-lg">Sign Up</button>
+            </div>
+        </form>
+        <div class="hint-text">Already have an account? <a asp-action="Login">Login here</a></div>
     </div>
 </body>
-
 </html>

@@ -7,7 +7,7 @@ namespace MyFlyer.Data.Interfaces
     public interface IMerchantRepository : IRepository<Merchant>
     {
         Merchant AddMerchant(Merchant entity);
-        List<Category> GetCategoryInMerchant(Merchant merchant);
+        
        
     }
 }

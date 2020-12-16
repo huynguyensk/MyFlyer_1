@@ -1,0 +1,124 @@
+﻿@using MyFlyer.Web.Models.DataModel;
+@using MyFlyer.Web.Util;
+@model dynamic
+
+@{
+    ViewData["Title"] = "Merchant Detail";
+    Layout = "~/Views/Shared/_SimpleLayout.cshtml";
+    
+    
+}
+<div class="row">
+
+    <div class="col-lg-3">
+
+        <h1 class="my-4">Shop Name</h1>
+        <div class="list-group">
+            @foreach (var merchant in Model.Merchants)
+            {
+                <a asp-action="Index" asp-controller="Product" asp-route-merchId="@merchant.Id" class="list-group-item">@merchant.Name</a>
+
+                @if (Model.Merchants.Count == 1)
+                {
+                    <ul>
+                        @foreach (var category in Model.Categories)
+                        {
+                            <li>
+                                <a asp-action="Index" asp-controller="Product" asp-route-merchId="@merchant.Id" asp-route-cateId="@category.Id">@category.Name</a>
+                                <span>{@category.Products.Count}</span>
+                            </li>
+                        }
+                    </ul>
+                }
+            }
+        </div>
+    </div>
+    <!-- /.col-lg-3 -->
+
+    <div class="col-lg-9">
+        <form asp-action="Index" asp-controller="Product" method="get">
+            <input type="text" placeholder="Search.." name="search">
+            <button type="submit">Search</button>
+        </form>
+        <div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">
+            <div class="carousel-inner" role="listbox">
+                @if (Model.Merchants.Count == 1)
+                {
+                    <div class="carousel-item active">
+                        <img class="d-block img-fluid" src="@Model.Merchants[0].Logo" alt="@Model.Merchants[0].Name Merchant Logo">
+                    </div>
+                }
+                else
+                {
+                    <div class="carousel-item active">
+                        <img class="d-block img-fluid" src="https://hstt.org/sites/default/files/styles/banner_sub/public/banners/2020_ShopforPetsBanner.png?itok=0ge3qVs-" alt="Home Page Image" />
+                    </div>
+                }
+            </div>
+
+
+            <div class="row">
+
+                @foreach (var product in Model.PageList)
+                {
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card h-100">
+                            <a asp-action="Details" asp-controller="Product" asp-route-id="@product.Id"><img class="card-img-top" src="@product.Image" alt=""></a>
+                            <div class="card-body">
+                                <h4 class="card-title">
+                                    <a asp-action="Details" asp-controller="Product" asp-route-id="@product.Id">@product.Name</a>
+                                </h4>
+                                <h5>@product.CurrentPrice</h5>
+                                <p class="card-text">@product.Description</p>
+                            </div>
+                            <div class="card-footer">
+                                <button type="button">Add To Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                }
+                @{
+                    var prevDisabled = !Model.PageList.HasPreviousPage ? "disabled" : "";
+                    var nextDisabled = !Model.PageList.HasNextPage ? "disabled" : "";
+                    var totalPageNo = Model.PageList.TotalPageNo;
+                    var currentPageNo = Model.PageList.PageIndex;
+
+                    string query = Context.Request.QueryString.ToString();
+                    var merch = Context.Request.HttpContext.Request.Query["merchId"];
+                    var cate = Context.Request.HttpContext.Request.Query["cateId"];
+                    var search = Context.Request.HttpContext.Request.Query["search"];
+
+                }
+
+                <a asp-action="Index"
+                   asp-route-pageNo="@(Model.PageList.PageIndex - 1)"
+                   asp-route-merchId="@merch.ToString()"
+                   asp-route-cateId="@cate.ToString() "
+                   asp-route-search="@search.ToString()"
+                   class="btn btn-default @prevDisabled">
+                    Previous
+                </a>
+
+
+
+
+
+                <a asp-action="Index"
+                   asp-route-pageNo="@(Model.PageList.PageIndex + 1)"
+                   asp-route-merchId="@merch.ToString()"
+                   asp-route-cateId="@cate.ToString() "
+                   asp-route-search="@search.ToString()"
+                   class="btn btn-default @nextDisabled">
+                    Next
+                </a>
+
+                <span>
+                    Page No : @currentPageNo of @totalPageNo
+                </span>
+            </div>
+            <!-- /.row -->
+
+        </div>
+        <!-- /.col-lg-9 -->
+
+    </div>
