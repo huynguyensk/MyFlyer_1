@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace MyFlyer.Web.Areas.Admin.Models
 {
-    public class MerchantView
+    public class MerchantViewModelAdmin
     {
         public string Name { get; set; }
         public string LogoFile { get; set; }

@@ -1,5 +1,5 @@
 ﻿@using MyFlyer.Web.Areas.Admin.Models;
-@model List<AccountViewModel>
+@model List<UserViewModel>
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
@@ -22,13 +22,13 @@
                     {
                                 <tr>
                                     <th scope="row">@i</th>
-                                    <td>@Model[i].Username</td>
+                                    <td>@Model[i].UserName</td>
                                     <td>@Model[i].Email</td>
                                     <td>@Model[i].Role.Name</td>
                                     <td>@Model[i].IsActive</td>
                                     <th scope="col"></th>
                                     <td>
-                                        <a asp-action="Details" asp-route-id="@Model[i].Id">Edit</a>
+                                        <a asp-action="Edit" asp-route-id="@Model[i].Id">Edit</a>
                                     </td>
                                 </tr>
                     }

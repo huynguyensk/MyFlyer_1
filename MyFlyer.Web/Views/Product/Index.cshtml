@@ -5,14 +5,12 @@
 @{
     ViewData["Title"] = "Merchant Detail";
     Layout = "~/Views/Shared/_SimpleLayout.cshtml";
-    
-    
 }
 <div class="row">
 
     <div class="col-lg-3">
 
-        <h1 class="my-4">Shop Name</h1>
+        <h1 class="my-4"><a asp-action="Index" asp-controller="Product">Shop Name</a></h1>
         <div class="list-group">
             @foreach (var merchant in Model.Merchants)
             {
@@ -45,7 +43,7 @@
                 @if (Model.Merchants.Count == 1)
                 {
                     <div class="carousel-item active">
-                        <img class="d-block img-fluid" src="@Model.Merchants[0].Logo" alt="@Model.Merchants[0].Name Merchant Logo">
+                        <img class="d-block img-fluid" src="@Model.Merchants[0].LogoFile" alt="@Model.Merchants[0].Name Merchant Logo">
                     </div>
                 }
                 else
@@ -72,7 +70,8 @@
                                 <p class="card-text">@product.Description</p>
                             </div>
                             <div class="card-footer">
-                                <button type="button">Add To Cart</button>
+                                <a asp-action="AddToCart" asp-controller="Product" asp-route-productId="@product.Id"  button type="button" class="btn btn-success" text-align: center>Add To Cart</a>
+                                <a asp-action="AddToWishlist" asp-controller="Product" asp-route-productId="@product.Id" button type="button" class="btn btn-success" text-align: center>Add To Wishlist</a>
                             </div>
                         </div>
                     </div>

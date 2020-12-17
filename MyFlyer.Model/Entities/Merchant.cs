@@ -10,17 +10,17 @@ namespace MyFlyer.Model.Entities
             Stores = new List<Store>();
             Products = new List<Product>();
             MerchantCategories = new List<MerchantCategory>();
-            
+
         }
         public string Name { get; set; }
         public string LogoFile { get; set; }
         public string Url { get; set; }
-        public bool ShowInHome { get; set; }
+        public bool ShowInHome { get; set; } = true;
         //-------------------------
         public List<Store> Stores { get; set; }
         public List<Product> Products { get; set; }
         [NotMapped]
-        public List<Category> Categories { get { return GetCategories(); } }             
+        public List<Category> Categories { get { return GetCategories(); } }
         public List<MerchantCategory> MerchantCategories { get; set; }
         public List<Category> GetCategories()
         {

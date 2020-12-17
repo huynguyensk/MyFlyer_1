@@ -1,0 +1,53 @@
+@using MyFlyer.Web.Models.DataModel;
+@model List<CartItemViewModel>
+@{
+    ViewData["Title"] = "Your Cart";
+    Layout = "~/Views/Shared/_SimpleLayout.cshtml";
+
+}
+<h2>Your Cart</h2>
+
+@if (Model.Count > 0)
+{
+    decimal total = 0;
+    int stt = 1;
+
+    <table class="table">
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Quantiy</th>
+            <th>Total</th>
+            <th></th>
+        </tr>
+        @foreach (var cartitem in Model)
+        {
+            var itemvalue = Convert.ToDecimal(cartitem.Quantity) * cartitem.Product.CurrentPrice;
+            total += itemvalue;
+
+            <tr>
+                <td>@(stt++)</td>
+                <td>@cartitem.Product.Name</td>
+                <td>@(String.Format("{0:C}", cartitem.Product.CurrentPrice))</td>
+                <td>@(cartitem.Quantity)</td>
+                <td>@(String.Format("{0:C}", itemvalue))</td>
+                <td>
+                    <a asp-action="RemoveCart" asp-route-productid="@cartitem.Product.Id" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+        <tr>
+            <td colspan="4" class="text-right">TOTAL</td>
+            <td>@(String.Format("{0:C}", total))</td>
+            <td></td>
+        </tr>
+    </table>
+
+    <a asp-controller="Product" asp-action="Checkout" class="btn btn-success">Buy Now</a>
+
+
+}
+else {
+    <p class="alert alert-danger">Empty Cart</p>
+}

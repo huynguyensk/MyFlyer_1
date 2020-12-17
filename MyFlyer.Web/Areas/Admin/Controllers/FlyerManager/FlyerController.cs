@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace MyFlyer.Web.Areas.Admin.Controllers.FlyerManager
 {
     [Area("admin")]
+    [Authorize(Roles ="Admin")]
     public class FlyerController : Controller
     {
         private readonly IFlyerRepository _flyerRepository;
@@ -35,13 +36,16 @@ namespace MyFlyer.Web.Areas.Admin.Controllers.FlyerManager
         // GET: Flyer
         public ActionResult Index()
         {
-            return View();
+            var flyers = _flyerRepository.GetAll();
+            return View(flyers);
         }
 
         // GET: Flyer/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Delete(int id)
         {
-            return View();
+
+            _flyerRepository.Delete(id);
+            return RedirectToAction("Index");
         }
 
 
@@ -185,50 +189,7 @@ namespace MyFlyer.Web.Areas.Admin.Controllers.FlyerManager
             return View();
         }
 
-        // GET: Flyer/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: Flyer/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Flyer/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: Flyer/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+       
+       
     }
 }

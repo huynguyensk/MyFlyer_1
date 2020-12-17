@@ -90,7 +90,7 @@ namespace MyFlyer.Web.Controllers
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Home", new { area = "" });
         }
 
         [HttpGet]
@@ -118,7 +118,7 @@ namespace MyFlyer.Web.Controllers
             if (result.Succeeded)
             {
                 IdentityResult roleResult;
-                var roleCheck = await _roleManager.RoleExistsAsync("Admin");
+                var roleCheck = await _roleManager.RoleExistsAsync("User");
                 if (!roleCheck)
                 {
                     var newRole = new AppRole
@@ -127,7 +127,7 @@ namespace MyFlyer.Web.Controllers
                     };
                     roleResult = await _roleManager.CreateAsync(newRole);
                 }
-                await _userManager.AddToRoleAsync(user, "Admin");
+                await _userManager.AddToRoleAsync(user, "User");
                 return await LoginAsync(new LoginViewModel
                 {
                     Email = registerViewModel.Email,

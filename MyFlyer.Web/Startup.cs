@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MyFlyer.Application.Repositories;
 using ReflectionIT.Mvc.Paging;
+using System;
 
 namespace MyFlyer.Web
 {
@@ -34,6 +35,13 @@ namespace MyFlyer.Web
             services.AddDbContext<ApplicationDbContext>(options =>
                options.UseSqlServer(
                    Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddDistributedMemoryCache();
+            services.AddSession(cfg =>
+            {
+                cfg.Cookie.Name = "FlyerCookie";
+                cfg.IdleTimeout = new TimeSpan(0, 30, 0);
+            });
             services.AddIdentity<AppUser, AppRole>(
                options =>
                {
@@ -69,6 +77,7 @@ namespace MyFlyer.Web
             options.LogoutPath = "/Account/LogOff";
         });
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddHttpContextAccessor();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -86,7 +95,7 @@ namespace MyFlyer.Web
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            app.UseSession();
             app.UseRouting();
             app.UseCookiePolicy();
             app.UseAuthentication();
@@ -94,15 +103,15 @@ namespace MyFlyer.Web
             app.UseMvc();
             app.UseEndpoints(endpoints =>
             {
-            endpoints.MapAreaControllerRoute(
-               name: "Admin",
-               areaName: "Admin",
-               pattern: "Admin/{controller=Home}/{action=Index}");
+                endpoints.MapAreaControllerRoute(
+                   name: "Admin",
+                   areaName: "Admin",
+                   pattern: "Admin/{controller=Home}/{action=Index}");
 
-            endpoints.MapControllerRoute(
-                name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
-                
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
+
                 endpoints.MapRazorPages();
             });
         }

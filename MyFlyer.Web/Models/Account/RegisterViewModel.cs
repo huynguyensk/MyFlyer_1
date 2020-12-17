@@ -4,8 +4,7 @@ namespace MyFlyer.Web.Models.Account
 {
     public class RegisterViewModel
     {
-        [Required]
-        public string UserName { get; set; }
+
         [Required]
         [DataType(DataType.EmailAddress)]
         [EmailAddress]

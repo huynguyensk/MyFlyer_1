@@ -1,0 +1,23 @@
+@using Microsoft.AspNetCore.Http
+@using Newtonsoft.Json
+@using MyFlyer.Web.Models.DataModel
+@inject IHttpContextAccessor HttpContextAccessor
+
+
+@{
+    var session = HttpContextAccessor.HttpContext.Session;
+    string jsoncart = session.GetString(MyFlyer.Web.Controllers.ProductController.CARTKEY);
+    if (jsoncart != null)
+    {
+        var cart = JsonConvert.DeserializeObject<List<CartItemViewModel>>(jsoncart);
+        <li class="nav-item">
+            <a class="nav-link text-light" asp-action="Cart" asp-controller="Product">Cart(@cart.Count)</a>
+        </li>
+    }
+    else
+    {
+        <li class="nav-item">
+            <a class="nav-link text-light" asp-action="Cart" asp-controller="Product">Cart</a>
+        </li>
+    }
+}

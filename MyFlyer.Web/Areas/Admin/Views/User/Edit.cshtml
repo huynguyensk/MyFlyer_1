@@ -1,0 +1,39 @@
+﻿@using MyFlyer.Web.Areas.Admin.Models;
+@model dynamic
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+    <div>
+        @{UserViewModel user = Model.UserV;
+                <form asp-action="Edit" asp-rout-id="@user.Id" method="post">
+                    <div class="form-group">
+                        <label asp-for="@user.UserName">User Name</label>
+                        <input type="text" class="form-control" asp-for="@user.UserName" placeholder="UserName">
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="@user.Email">Email address</label>
+                        <input type="email" class="form-control" asp-for="@user.Email" placeholder="name@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlSelect1">Select Role</label>
+                        <select class="form-control">
+                            @foreach (var role in Model.RolesVlist)
+                            {
+                                <option> @role.Name</option>
+
+                            }
+
+
+                        </select>
+                    </div>
+                    <div class="form-group form-check">
+                        <input type="checkbox" class="form-check-input" asp-for="@user.IsActive">
+                        <label class="form-check-label" for="exampleCheck1">Active</label>
+                    </div>
+                    <button type="submit" class="bg-success"> Update</button>
+                   <a asp-action="Index" asp-controller="User" asp-area="Admin" type="button">Cancel</a>
+                </form>
+        }
+
+    </div>

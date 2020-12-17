@@ -2,10 +2,13 @@
 @using MyFlyer.Model.Entities
 @inject SignInManager<AppUser> SignInManager
 @inject UserManager<AppUser> UserManager
-
+@using Microsoft.AspNetCore.Http
+@using Newtonsoft.Json
+@using MyFlyer.Web.Models.DataModel
+@inject IHttpContextAccessor HttpContextAccessor
     <ul class="navbar-nav ml-auto">
         <li class="nav-item active">
-            <a class="nav-link" href="#">
+            <a class="nav-link" asp-action="Index" asp-controller="Home">
                 Home
                 <span class="sr-only">(current)</span>
             </a>
@@ -19,6 +22,23 @@
         <li class="nav-item">
             <a class="nav-link" href="#">Contact</a>
         </li>
+        @{
+            var session = HttpContextAccessor.HttpContext.Session;
+            string jsoncart = session.GetString(MyFlyer.Web.Controllers.ProductController.CARTKEY);
+            if (jsoncart != null)
+            {
+                var cart = JsonConvert.DeserializeObject<List<CartItemViewModel>>(jsoncart);
+                <li class="nav-item">
+                    <a class="nav-link text-light" asp-action="Cart" asp-controller="Product">Cart(@cart.Count)</a>
+                </li>
+            }
+            else
+            {
+                <li class="nav-item">
+                    <a class="nav-link text-light" asp-action="Cart" asp-controller="Product">Cart</a>
+                </li>
+            }
+        }
 
         @if (SignInManager.IsSignedIn(User))
         {
@@ -26,7 +46,7 @@
                 <a id="manage" class="nav-link text-light" asp-page="/" title="Manage">Hello @UserManager.GetUserName(User)!</a>
             </li>
             <li class="nav-item">
-                <form id="logoutForm" class="form-inline" asp-action="Logout"asp-controller="Account" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                <form id="logoutForm" class="form-inline" asp-action="Logout" asp-controller="Account" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
                     <button id="logout" type="submit" class="nav-link btn btn-link text-light">Logout</button>
                 </form>
             </li>

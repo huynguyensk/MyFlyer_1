@@ -10,7 +10,7 @@ namespace MyFlyer.Web.Models.DataModel
         }
         public string Name { get; set; }
         public string Url { get; set; }
-        public string Logo { get; set; }
+        public string LogoFile { get; set; }
         public virtual ICollection<ProductViewModel> Products { get; set; }
         public virtual ICollection<CategoryViewModel> Categories { get; set; }
     }
