@@ -209,21 +209,21 @@ namespace MyFlyer.Data.Migrations
                         new
                         {
                             Id = 1,
-                            ConcurrencyStamp = "f9e1ce1a-e723-40f9-aa62-daab97532cb6",
+                            ConcurrencyStamp = "ca6e3dca-ce30-424c-86ae-0ed85bc7b3d4",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "37876ff4-de87-4bef-ac0f-2895185a8342",
+                            ConcurrencyStamp = "92b5a65d-9fe9-4ce3-80a3-408263b057b7",
                             Name = "Staff",
                             NormalizedName = "STAFF"
                         },
                         new
                         {
                             Id = 3,
-                            ConcurrencyStamp = "943c767a-6092-428f-8810-53ab48842e31",
+                            ConcurrencyStamp = "a0c0bdd5-e8c0-4c5f-a50b-65d7e8bfdd30",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -316,14 +316,14 @@ namespace MyFlyer.Data.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "5ddb6284-6a1a-4e64-be7f-8c9ba19512c0",
+                            ConcurrencyStamp = "617b05f3-1032-4f63-b927-28a45e14ebe1",
                             EmailConfirmed = false,
-                            IsActive = false,
+                            IsActive = true,
                             LockoutEnabled = false,
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEAnp4AtWv+hFaTEebkW6f3tksJsH5hJ8VvLSQyCFsVW2X2File/AC7EfSCjOM6L6UQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEKvOdqQb/eRx+WE3iCIOAnx24OhVMXmDt9CM0lts/RaP78ykRjUtE6YpiH8XBObFrg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "0cafeb4a-8128-4350-84cd-cd9a9bbd36ae",
+                            SecurityStamp = "8cb620f4-f23a-40f5-b968-3e506769a192",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         },
@@ -331,16 +331,31 @@ namespace MyFlyer.Data.Migrations
                         {
                             Id = 2,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "33f43528-208c-45f7-82f6-972743e24f62",
+                            ConcurrencyStamp = "fc64b976-1f84-4491-a098-d237910b6f2e",
                             EmailConfirmed = false,
-                            IsActive = false,
+                            IsActive = true,
                             LockoutEnabled = false,
                             NormalizedUserName = "STAFF",
-                            PasswordHash = "AQAAAAEAACcQAAAAEF2wk70dFv4gDcHVKgKwmHNyaQAWULM03hpySWaiz0L6iSNqkUcO/WCF/OJQvQR9hQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEKvOdqQb/eRx+WE3iCIOAnx24OhVMXmDt9CM0lts/RaP78ykRjUtE6YpiH8XBObFrg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "b4c30982-c1c4-41ed-8eb4-11f2ae43c9a0",
+                            SecurityStamp = "81b96b8e-65a3-46ff-8772-e5d52fd5a2c0",
                             TwoFactorEnabled = false,
                             UserName = "staff"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "9b4d9c5a-10c2-48c5-9b10-c4c660e1a090",
+                            EmailConfirmed = false,
+                            IsActive = true,
+                            LockoutEnabled = false,
+                            NormalizedUserName = "USER",
+                            PasswordHash = "AQAAAAEAACcQAAAAEKvOdqQb/eRx+WE3iCIOAnx24OhVMXmDt9CM0lts/RaP78ykRjUtE6YpiH8XBObFrg==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "6c2e0554-735d-42a5-9594-65e28952dac9",
+                            TwoFactorEnabled = false,
+                            UserName = "user"
                         });
                 });
 

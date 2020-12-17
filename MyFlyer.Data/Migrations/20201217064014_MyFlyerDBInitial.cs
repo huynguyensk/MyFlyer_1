@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MyFlyer.Data.Migrations
 {
-    public partial class MyFlyerDbInital : Migration
+    public partial class MyFlyerDBInitial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -446,9 +446,9 @@ namespace MyFlyer.Data.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Description", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { 1, "f9e1ce1a-e723-40f9-aa62-daab97532cb6", null, "Admin", "ADMIN" },
-                    { 2, "37876ff4-de87-4bef-ac0f-2895185a8342", null, "Staff", "STAFF" },
-                    { 3, "943c767a-6092-428f-8810-53ab48842e31", null, "User", "USER" }
+                    { 1, "ca6e3dca-ce30-424c-86ae-0ed85bc7b3d4", null, "Admin", "ADMIN" },
+                    { 2, "92b5a65d-9fe9-4ce3-80a3-408263b057b7", null, "Staff", "STAFF" },
+                    { 3, "a0c0bdd5-e8c0-4c5f-a50b-65d7e8bfdd30", null, "User", "USER" }
                 });
 
             migrationBuilder.InsertData(
@@ -456,8 +456,9 @@ namespace MyFlyer.Data.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "CartId", "ConcurrencyStamp", "Email", "EmailConfirmed", "IsActive", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "Password", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName", "WishlistId" },
                 values: new object[,]
                 {
-                    { 1, 0, null, "5ddb6284-6a1a-4e64-be7f-8c9ba19512c0", null, false, false, false, null, null, "ADMIN", null, "AQAAAAEAACcQAAAAEAnp4AtWv+hFaTEebkW6f3tksJsH5hJ8VvLSQyCFsVW2X2File/AC7EfSCjOM6L6UQ==", null, false, "0cafeb4a-8128-4350-84cd-cd9a9bbd36ae", false, "admin", null },
-                    { 2, 0, null, "33f43528-208c-45f7-82f6-972743e24f62", null, false, false, false, null, null, "STAFF", null, "AQAAAAEAACcQAAAAEF2wk70dFv4gDcHVKgKwmHNyaQAWULM03hpySWaiz0L6iSNqkUcO/WCF/OJQvQR9hQ==", null, false, "b4c30982-c1c4-41ed-8eb4-11f2ae43c9a0", false, "staff", null }
+                    { 1, 0, null, "617b05f3-1032-4f63-b927-28a45e14ebe1", null, false, true, false, null, null, "ADMIN", null, "AQAAAAEAACcQAAAAEKvOdqQb/eRx+WE3iCIOAnx24OhVMXmDt9CM0lts/RaP78ykRjUtE6YpiH8XBObFrg==", null, false, "8cb620f4-f23a-40f5-b968-3e506769a192", false, "admin", null },
+                    { 2, 0, null, "fc64b976-1f84-4491-a098-d237910b6f2e", null, false, true, false, null, null, "STAFF", null, "AQAAAAEAACcQAAAAEKvOdqQb/eRx+WE3iCIOAnx24OhVMXmDt9CM0lts/RaP78ykRjUtE6YpiH8XBObFrg==", null, false, "81b96b8e-65a3-46ff-8772-e5d52fd5a2c0", false, "staff", null },
+                    { 3, 0, null, "9b4d9c5a-10c2-48c5-9b10-c4c660e1a090", null, false, true, false, null, null, "USER", null, "AQAAAAEAACcQAAAAEKvOdqQb/eRx+WE3iCIOAnx24OhVMXmDt9CM0lts/RaP78ykRjUtE6YpiH8XBObFrg==", null, false, "6c2e0554-735d-42a5-9594-65e28952dac9", false, "user", null }
                 });
 
             migrationBuilder.InsertData(

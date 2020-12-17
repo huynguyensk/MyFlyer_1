@@ -93,7 +93,7 @@ namespace MyFlyer.Data
                     Id = 1, // primary key
                     UserName = "admin",
                     NormalizedUserName = "ADMIN",
-                    PasswordHash = hasher.HashPassword(null, "123"),
+                    PasswordHash = "AQAAAAEAACcQAAAAEKvOdqQb/eRx+WE3iCIOAnx24OhVMXmDt9CM0lts/RaP78ykRjUtE6YpiH8XBObFrg==",
                     SecurityStamp = Guid.NewGuid().ToString("D")
                 },
                 new AppUser
@@ -101,7 +101,15 @@ namespace MyFlyer.Data
                     Id = 2, // primary key
                     UserName = "staff",
                     NormalizedUserName = "STAFF",
-                    PasswordHash = hasher.HashPassword(null, "123"),
+                    PasswordHash = "AQAAAAEAACcQAAAAEKvOdqQb/eRx+WE3iCIOAnx24OhVMXmDt9CM0lts/RaP78ykRjUtE6YpiH8XBObFrg==",
+                    SecurityStamp = Guid.NewGuid().ToString("D")
+                },
+                new AppUser
+                {
+                    Id = 3, // primary key
+                    UserName = "user",
+                    NormalizedUserName = "USER",
+                    PasswordHash = "AQAAAAEAACcQAAAAEKvOdqQb/eRx+WE3iCIOAnx24OhVMXmDt9CM0lts/RaP78ykRjUtE6YpiH8XBObFrg==",
                     SecurityStamp = Guid.NewGuid().ToString("D")
                 }
             );
